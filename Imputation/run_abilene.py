@@ -1,5 +1,9 @@
 import os
 import subprocess
+import sys
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
 os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
@@ -16,7 +20,7 @@ Lambda = 2
 itr = "1"
 features = "144"
 command = [
-    "/root/miniconda3/bin/python", "run.py",
+    sys.executable, str(HERE / "run.py"),
     "--train_epochs", train_epochs,
     "--itr", itr,
     "--task_name", "imputation",
@@ -41,10 +45,10 @@ command = [
     "--Lambda", str(Lambda),
     "--freq", "h",
     "--percent", str(percent),
-    "--gpt_layer", "6",
+    "--gpt_layers", "6",
     "--model", model,
     "--patience", "5",
     "--mask_rate", mask_rate
 ]
 
-subprocess.run(command)
+subprocess.run(command, cwd=HERE, check=True)

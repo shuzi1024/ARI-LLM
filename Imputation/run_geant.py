@@ -1,6 +1,10 @@
 
 import os
 import subprocess
+import sys
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
@@ -16,7 +20,7 @@ Lambda = 4
 itr = "1"
 feature = "300"
 command = [
-    "/root/miniconda3/bin/python", "run.py",
+    sys.executable, str(HERE / "run.py"),
     "--train_epochs", train_epochs,
     "--itr", itr,
     "--task_name", "imputation",
@@ -40,10 +44,10 @@ command = [
     "--freq", "h",
     "--Lambda", str(Lambda),
     "--percent", str(percent),
-    "--gpt_layer", "6",
+    "--gpt_layers", "6",
     "--model", model,
     "--patience", "5",
     "--mask_rate", mask_rate
 ]
 
-subprocess.run(command)
+subprocess.run(command, cwd=HERE, check=True)

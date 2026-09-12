@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -e
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+
 # Set environment variables
 export CUDA_VISIBLE_DEVICES=0
 export TOKENIZERS_PARALLELISM=false
@@ -40,7 +44,7 @@ python -u run.py \
     --freq "h" \
     --Lambda $Lambda \
     --percent $percent \
-    --gpt_layer "6" \
+    --gpt_layers "6" \
     --model $model \
     --patience "5" \
     --mask_rate $mask_rate

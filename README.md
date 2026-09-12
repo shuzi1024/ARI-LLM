@@ -47,17 +47,23 @@ To install all dependencies:
 pip install -r requirements.txt
 ```
 
+After cloning, install Git LFS and materialize the dataset files:
+```bash
+git lfs install
+git lfs pull
+```
+
 ## Datasets
 - Abilene dataset
 - GÉANT dataset
 - WS-DREAM dataset
 
-These three public datasets are under `./dataset/net_traffic/Abilene`, `./dataset/net_traffic/GEANT` and `./dataset/net_traffic/wsdream`. Once the paper is accepted, we will make the dataset download link publicly available.
+These three public datasets are under `./datasets/net_traffic/Abilene`, `./datasets/net_traffic/GEANT` and `./datasets/net_traffic/wsdream`. The CSV files are stored with Git LFS.
 
 
 
 ## LLM settings
-`./Imputation/models/ARI-LLM.py` provides examples of using GPT2, deepseek_R1_1.5b, and llama_3.1_8b. Our experiments are based on these models. Please download the corresponding models from Hugging Face to the corresponding locations.
+`./Imputation/models/ARI_LLM.py` provides examples of using GPT2, deepseek_R1_1.5b, and llama_3.1_8b. Our experiments are based on these models. Please download the corresponding models from Hugging Face to the corresponding locations.
 
 ## How to Run the Model
 We provide four experiment scripts for demonstration purpose under the folder `./ARI-LLM/Imputation` and `./ARI-LLM/Imputation/scripts`.
@@ -80,11 +86,11 @@ python ./Imputation/run_wsdream.py
 
 Abilene Dataset Test:
 ```bash
-bash ./Imputation/scripts/Abilene.sh
+bash ./Imputation/scripts/abilene.sh
 ```
 GÉANT Dataset Test:
 ```bash
-bash ./Imputation/scripts/GEANT.sh
+bash ./Imputation/scripts/geant.sh
 ```
 WS-DREAM Dataset Test:
 ```bash
@@ -94,9 +100,9 @@ bash ./Imputation/scripts/wsdream.sh
 The dataset entry points select the matching experiment implementation
 automatically. GEANT uses `Imputation/exp/exp_geant.py` with the 300-feature
 setting, and WS-DREAM uses `Imputation/exp/exp_wsdream.py`; no manual import
-edit in `run.py` is required.
+edit in `run.py` is required. The launchers resolve their own directory, so
+they can be invoked from the repository root.
 
 ## Detailed usage
 
 Please refer to ```./Imputation/run.py``` for the detailed description of each hyperparameter.
-

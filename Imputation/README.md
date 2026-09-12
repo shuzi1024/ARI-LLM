@@ -81,8 +81,17 @@ WS-DREAM Dataset Test:
 bash ./Imputation/scripts/wsdream.sh
 ```
 
+The launcher now selects the dataset-specific experiment class from `--data`:
+
+- `net_traffic_abilene`: `exp.exp_imputation`
+- `net_traffic_geant`: `exp.exp_geant`, using 300 features
+- `net_traffic_trans` (WS-DREAM): `exp.exp_wsdream`
+
+The original code required manually replacing the import in `run.py` before
+running GEANT or WS-DREAM. This repository includes that routing fix, so the
+provided dataset entry points can be run directly.
+
 ## Detailed usage
 
 Please refer to ```./Imputation/run.py``` for the detailed description of each hyperparameter.
-
 

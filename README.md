@@ -91,8 +91,12 @@ WS-DREAM Dataset Test:
 bash ./Imputation/scripts/wsdream.sh
 ```
 
+The dataset entry points select the matching experiment implementation
+automatically. GEANT uses `Imputation/exp/exp_geant.py` with the 300-feature
+setting, and WS-DREAM uses `Imputation/exp/exp_wsdream.py`; no manual import
+edit in `run.py` is required.
+
 ## Detailed usage
 
 Please refer to ```./Imputation/run.py``` for the detailed description of each hyperparameter.
-
 

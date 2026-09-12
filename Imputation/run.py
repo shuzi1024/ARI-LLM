@@ -1,7 +1,6 @@
 import argparse
 import os
 import torch
-from exp.exp_imputation import Exp_Imputation
 import random
 import numpy as np
 
@@ -98,6 +97,16 @@ parser.add_argument('--Lambda', type=int, default=2)
 parser.add_argument('--sample_num', type=int, default=1000)
 args = parser.parse_args()
 args.use_gpu = True if torch.cuda.is_available() and args.use_gpu else False
+
+# The dataset-specific experiment classes use different tensor layouts and
+# feature handling. The original scripts required editing this import by hand
+# before running GEANT or WS-DREAM; dispatch from --data instead.
+if args.data == 'net_traffic_geant':
+    from exp.exp_geant import Exp_Imputation
+elif args.data == 'net_traffic_trans':
+    from exp.exp_wsdream import Exp_Imputation
+else:
+    from exp.exp_imputation import Exp_Imputation
 
 if args.use_gpu and args.use_multi_gpu:
     args.dvices = args.devices.replace(' ', '')
